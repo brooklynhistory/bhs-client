@@ -4,6 +4,8 @@ namespace BHS\Client;
 
 class App {
 	public static function init() {
+		$shortcodes = new Shortcodes();
+		$shortcodes->set_up_hooks();
 		/*
 		if ( is_admin() ) {
 			$admin = new Admin();
