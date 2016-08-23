@@ -2,9 +2,23 @@
 
 namespace BHS\Client;
 
+/**
+ * Get a BHS record.
+ *
+ * This class is the main tool that should be used to access BHS records.
+ * It contains two caching layers (one per-pageload, and one stored in the
+ * transient cache). It also allows `foreach()` looping, so it can be used
+ * easily in the context of a PHP WP template file:
+ *
+ *   $record = new \BHS\Client\Record( $identifier );
+ *   foreach ( $record as $field ) {
+ *       echo "Field Name: " . $field->get_the_label() . "<br />";
+ *       echo "Field Value: " . $field->get_the_value() . "<br />";
+ *   }
+ */
 class Record implements \IteratorAggregate {
 	protected $identifier;
-	protected $field_data = array();
+	protected $field_data;
 
 	/**
 	 * Constructor.
@@ -34,11 +48,19 @@ class Record implements \IteratorAggregate {
 		return true;
 	}
 
+	/**
+	 * Get record data.
+	 *
+	 * @param string $fields Comma-separated list of field names, or 'all' to get
+	 *                       all fields. Fields will be returned in the order in
+	 *                       which they're specified.
+	 * @return array Raw record data.
+	 */
 	public function get_record_data( $fields = 'all' ) {
 		$data = null;
 
 		// Look for cached version.
-		if ( isset( $this->field_data ) ) {
+		if ( null !== $this->field_data ) {
 			$data = $this->field_data;
 		}
 
@@ -74,8 +96,31 @@ class Record implements \IteratorAggregate {
 		return $data;
 	}
 
+	/**
+	 * Get a RecordField object for a given field.
+	 *
+	 * @param string $field_name
+	 * @return \BHS\Client\RecordField|null Null on failure.
+	 */
+	public function get_field( $field_name ) {
+		$this->populate();
+
+		if ( ! isset( $this->field_data[ $field_name ] ) ) {
+			return null;
+		}
+
+		$field_value = $this->field_data[ $field_name ];
+
+		return new RecordField( $field_name, $field_value );
+	}
+
+	/**
+	 * Populate the object.
+	 *
+	 * Used to fill the aggregator on-demand.
+	 */
 	protected function populate() {
-		if ( ! isset( $this->field_data ) && ! empty( $this->identifier ) ) {
+		if ( null === $this->field_data && ! empty( $this->identifier ) ) {
 			$this->get_record_data();
 		}
 	}
@@ -117,6 +162,14 @@ class Record implements \IteratorAggregate {
 		return $incrementor;
 	}
 
+	/**
+	 * Get the iterator to be used by IteratorAggregate.
+	 *
+	 * The data array is an array of RecordField objects corresponding to the
+	 * requested record.
+	 *
+	 * @return ArrayIterator
+	 */
 	public function getIterator() {
 		$data = $this->get_record_data();
 		$items = array();
