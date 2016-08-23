@@ -2,8 +2,9 @@
 
 namespace BHS\Client;
 
-class Record {
+class Record implements \IteratorAggregate {
 	protected $identifier;
+	protected $field_data = array();
 
 	/**
 	 * Constructor.
@@ -34,22 +35,32 @@ class Record {
 	}
 
 	public function get_record_data( $fields = 'all' ) {
+		$data = null;
+
 		// Look for cached version.
-		$transient_key = $this->get_transient_key( $this->identifier );
-		$data = get_transient( $transient_key );
-		if ( ! $data ) {
-
-			// If not found, fetch.
-			$client = new APIClient();
-			$data = $client->fetch_by_identifier( $this->identifier );
-
-			// Errors should not be cached.
-			if ( is_wp_error( $data ) ) {
-				return $data;
-			}
-
-			set_transient( $transient_key, $data, DAY_IN_SECONDS );
+		if ( isset( $this->field_data ) ) {
+			$data = $this->field_data;
 		}
+
+		if ( ! $data ) {
+			$transient_key = $this->get_transient_key( $this->identifier );
+			$data = get_transient( $transient_key );
+			if ( ! $data ) {
+
+				// If not found, fetch.
+				$client = new APIClient();
+				$data = $client->fetch_by_identifier( $this->identifier );
+
+				// Errors should not be cached.
+				if ( is_wp_error( $data ) ) {
+					return $data;
+				}
+
+				set_transient( $transient_key, $data, DAY_IN_SECONDS );
+			}
+		}
+
+		$this->field_data = $data;
 
 		if ( 'all' !== $fields ) {
 			$_data = array();
@@ -61,6 +72,12 @@ class Record {
 		}
 
 		return $data;
+	}
+
+	protected function populate() {
+		if ( ! isset( $this->field_data ) && ! empty( $this->identifier ) ) {
+			$this->get_record_data();
+		}
 	}
 
 	/**
@@ -98,5 +115,15 @@ class Record {
 		}
 
 		return $incrementor;
+	}
+
+	public function getIterator() {
+		$data = $this->get_record_data();
+		$items = array();
+		foreach ( $data as $k => $v ) {
+			$items[] = new RecordField( $k, $v );
+		}
+		$i = new \ArrayIterator( $items );
+		return $i;
 	}
 }
