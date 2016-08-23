@@ -34,25 +34,40 @@ class Record {
 		return true;
 	}
 
-	public function get_record_data() {
+	public function get_record_data( $fields = 'all' ) {
+		$data = null;
+
 		// Already fetched on this pageload.
 		if ( null !== $this->record_data ) {
-			return $this->record_data;
+			$data = $this->record_data;
 		}
 
-		// Look for cached version.
+		if ( null === $data ) {
+			// Look for cached version.
 
-		// If not found, fetch.
-		$client = new APIClient();
-		$item = $client->fetch_by_identifier( $this->identifier );
+			// If not found, fetch.
+			$client = new APIClient();
+			$item = $client->fetch_by_identifier( $this->identifier );
 
-		if ( is_wp_error( $item ) ) {
+			if ( is_wp_error( $item ) ) {
+				$this->record_data = $item;
+				return $item;
+			}
+
+			// @todo Cache
 			$this->record_data = $item;
-			return $item;
+			$data = $this->record_data;
 		}
 
-		// @todo Cache
-		$this->record_data = $item;
-		return $this->record_data;
+		if ( 'all' !== $fields ) {
+			$_data = array();
+			$_fields = explode( ',', $fields );
+			foreach ( $_fields as $field ) {
+				$_data[ $field ] = isset( $data->{$field} ) ? $data->{$field} : '';
+			}
+			$data = (object) $_data;
+		}
+
+		return $data;
 	}
 }
