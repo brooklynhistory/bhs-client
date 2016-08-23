@@ -26,6 +26,6 @@ class APIClient {
 		}
 
 		$body = json_decode( wp_remote_retrieve_body( $result ) );
-		return $body;
+		return (array) $body;
 	}
 }
