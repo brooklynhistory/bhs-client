@@ -39,19 +39,28 @@ class Shortcodes {
 
 		$data = $record->get_record_data( $r['fields'] );
 
+		// Special case - hardcoded for now.
+		$skip = array( 'relation' );
+
 		// Should maybe move rendering to Record object.
 		$markup .= '<ul class="bhs-record-data">';
 		foreach ( $data as $key => $value ) {
-			if ( $hide_empty && empty( $value ) ) {
+			if ( in_array( $key, $skip, true ) ) {
 				continue;
 			}
 
 			$values = array();
-			foreach ( (array) $value as $single_value ) {
-				// skip multi-d arrays for now - should be excluded in most cases.
-				if ( ! is_array( $single_value  ) ) {
-					$values[] = esc_html( $single_value );
+			if ( ! empty( $value ) ) {
+				foreach ( (array) $value as $single_value ) {
+					// skip multi-d arrays for now - should be excluded in most cases.
+					if ( ! is_array( $single_value  ) ) {
+						$values[] = esc_html( $single_value );
+					}
 				}
+			}
+
+			if ( $hide_empty && empty( $values ) ) {
+				continue;
 			}
 
 			$value_html = implode( '<br />', $values );
