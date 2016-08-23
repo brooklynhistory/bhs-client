@@ -4,7 +4,6 @@ namespace BHS\Client;
 
 class Record {
 	protected $identifier;
-	protected $record_data;
 
 	/**
 	 * Constructor.
@@ -50,9 +49,6 @@ class Record {
 			}
 
 			set_transient( $transient_key, $data, DAY_IN_SECONDS );
-			_b( 'Uncached!' );
-		} else {
-			_b( 'Cached!' );
 		}
 
 		if ( 'all' !== $fields ) {
