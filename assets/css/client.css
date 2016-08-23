@@ -1,0 +1,30 @@
+/**
+ * Default styles for BHS Client records.
+ */
+
+.bhs-record-data {
+	list-style-type: none;
+}
+
+.bhs-record-data > li {
+	clear: both;
+	padding: 4px;
+	overflow: hidden;
+}
+
+.bhs-record-data > li:nth-child(2n-1) {
+	background: #efefef;
+}
+
+.bhs-field-name {
+	float: left;
+	font-weight: bold;
+	width: 160px;
+}
+
+.bhs-field-value {
+	padding-left: 200px;
+}
+
+
+

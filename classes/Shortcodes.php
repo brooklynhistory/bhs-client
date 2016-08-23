@@ -8,6 +8,8 @@ class Shortcodes {
 	}
 
 	public function bhs_record_shortcode( $atts ) {
+		wp_enqueue_style( 'bhs-client', plugins_url() . '/bhs-client/assets/css/client.css' );
+
 		$markup = '';
 
 		if ( ! isset( $atts['identifier'] ) ) {
