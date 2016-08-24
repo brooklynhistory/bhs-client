@@ -6,17 +6,18 @@ class App {
 	public static function init() {
 		$shortcodes = new Shortcodes();
 		$shortcodes->set_up_hooks();
-		/*
-		if ( is_admin() ) {
-			$admin = new Admin();
-			$admin->set_up_hooks();
-		}
 
-		$schema = new Schema();
-		$schema->set_up_hooks();
+		add_action( 'save_post', array( __CLASS__, 'cache_increment' ) );
+	}
 
-		$endpoint = new Endpoint();
-		$endpoint->set_up_hooks();
-		*/
+	/**
+	 * Bump cache incrementor.
+	 *
+	 * Fired every time a post is saved.
+	 *
+	 * @since 1.0.0
+	 */
+	public static function cache_increment() {
+		delete_transient( 'bhs_record_incrementor' );
 	}
 }
