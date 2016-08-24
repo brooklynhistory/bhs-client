@@ -2,7 +2,17 @@
 
 namespace BHS\Client;
 
+/**
+ * Main application class.
+ *
+ * @since 1.0.0
+ */
 class App {
+	/**
+	 * Initialize application state.
+	 *
+	 * @since 1.0.0
+	 */
 	public static function init() {
 		$shortcodes = new Shortcodes();
 		$shortcodes->set_up_hooks();

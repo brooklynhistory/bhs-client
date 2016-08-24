@@ -2,7 +2,17 @@
 
 namespace BHS\Client;
 
+/**
+ * General client for BHS Storehouse API.
+ *
+ * @since 1.0.0
+ */
 class APIClient {
+	/**
+	 * Constructor.
+	 *
+	 * @since 1.0.0
+	 */
 	public function __construct() {
 		$this->api_base = App::get_api_base();
 	}
@@ -11,6 +21,11 @@ class APIClient {
 	 * Fetch by an identifier.
 	 *
 	 * Assumes the BHS URL base.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $identifier
+	 * @return array|WP_Error Error object on failure.
 	 */
 	public function fetch_by_identifier( $identifier ) {
 		$url = $this->api_base . 'record/' . urlencode( $identifier );

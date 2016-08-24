@@ -2,11 +2,28 @@
 
 namespace BHS\Client;
 
+/**
+ * Shortcode setup.
+ *
+ * @since 1.0.0
+ */
 class Shortcodes {
+	/**
+	 * Hook into WordPress.
+	 *
+	 * @since 1.0.0
+	 */
 	public function set_up_hooks() {
 		add_shortcode( 'bhs_record', array( $this, 'bhs_record_shortcode' ) );
 	}
 
+	/**
+	 * Handler for 'bhs_record' shortcode.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $atts
+	 */
 	public function bhs_record_shortcode( $atts ) {
 		wp_enqueue_style( 'bhs-client', plugins_url() . '/bhs-client/assets/css/client.css' );
 
