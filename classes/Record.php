@@ -136,8 +136,8 @@ class Record implements \IteratorAggregate {
 	 */
 	protected function get_transient_key( $identifier ) {
 		$incrementor = $this->get_transient_incrementor();
-		$hashed = md5( $identifier );
-		$key = sprintf( 'bhs_record_%s_%s', $hashed, $incrementor );
+		$hashed = md5( $identifier . $incrementor );
+		$key = sprintf( 'bhs_record_%s', $hashed );
 
 		return $key;
 	}
