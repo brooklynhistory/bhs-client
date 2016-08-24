@@ -17,6 +17,9 @@ class App {
 		$shortcodes = new Shortcodes();
 		$shortcodes->set_up_hooks();
 
+		$admin = new Admin();
+		$admin->set_up_hooks();
+
 		add_action( 'save_post', array( __CLASS__, 'cache_increment' ) );
 
 		add_action( 'wp_head', array( __CLASS__, 'print_settings_for_js' ), 5 );
@@ -31,10 +34,12 @@ class App {
 	 * @return string
 	 */
 	public static function get_api_base() {
-		$base = 'http://assets.brooklynhistory.org/wp-json/bhs/v1/';
+		$default = 'http://assets.brooklynhistory.org/wp-json/bhs/v1/';
 
 		if ( defined( 'BHS_API_BASE' ) ) {
 			$base = BHS_API_BASE;
+		} else {
+			$base = get_option( 'bhs_api_base', $default );
 		}
 
 		return trailingslashit( $base );
