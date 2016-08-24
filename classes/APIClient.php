@@ -3,12 +3,8 @@
 namespace BHS\Client;
 
 class APIClient {
-	protected $api_base = 'http://assets.brooklynhistory.org/wp-json/bhs/v1/';
-
 	public function __construct() {
-		if ( defined( 'BHS_API_BASE' ) ) {
-			$this->api_base = trailingslashit( BHS_API_BASE );
-		}
+		$this->api_base = App::get_api_base();
 	}
 
 	/**
