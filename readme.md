@@ -73,15 +73,15 @@ foreach ( $record as $field ) {
 }
 ```
 
-**Get record `abc123` and display the value of one of its fields**
+**Get record `abc123` and display the values of one of its fields as a comma-separated array**
 
 ```php
 $record = new \BHS\Client\Record( 'abc123' );
-$description_field = $record->get_field( 'description' );
+$subject_field = $record->get_field( 'subject' );
 
 printf(
-    'The description for record abc123 is %s',
-    $description_field->get_field_value()
+    'The subjects for record abc123 are %s',
+    $subject_field->get_field_value( ', ' )
 );
 ```
 
@@ -108,7 +108,8 @@ $.ajax(
     url: window.BHS_Client_Settings.api_base + 'record/abc123',
     method: 'GET',
     success: function( r ) {
-        $( '#abc123-description' ).html( r.description );
+        var description = r.description;
+        $( '#abc123-description' ).html( description );
     }
 );
 ```
