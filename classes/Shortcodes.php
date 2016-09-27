@@ -59,6 +59,8 @@ class Shortcodes {
 		// Special case - hardcoded for now.
 		$skip = array( 'relation' );
 
+		$element_labels = App::get_element_labels();
+
 		// Should maybe move rendering to Record object.
 		$markup .= '<ul class="bhs-record-data">';
 		foreach ( $data as $key => $value ) {
@@ -82,10 +84,12 @@ class Shortcodes {
 
 			$value_html = implode( '<br />', $values );
 
+			$label = isset( $element_labels[ $key ] ) ? $element_labels[ $key ] : ucwords( $key );
+
 			$markup .= sprintf(
 				'<li class="bhs-field-%s"><div class="bhs-field-name">%s</div><div class="bhs-field-value">%s</div></li>',
 				sanitize_title( $key ),
-				esc_html( ucwords( $key ) ),
+				esc_html( $label ),
 				$value_html
 			);
 		}
