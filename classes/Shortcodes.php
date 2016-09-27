@@ -73,7 +73,12 @@ class Shortcodes {
 				foreach ( (array) $value as $single_value ) {
 					// skip multi-d arrays for now - should be excluded in most cases.
 					if ( ! is_array( $single_value  ) ) {
-						$values[] = esc_html( $single_value );
+						// Special case: trust the findingaid.
+						if ( 'relation_findingaid' === $key ) {
+							$values[] = $single_value;
+						} else {
+							$values[] = esc_html( $single_value );
+						}
 					}
 				}
 			}
