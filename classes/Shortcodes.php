@@ -76,6 +76,8 @@ class Shortcodes {
 						// Special case: trust the findingaid.
 						if ( 'relation_findingaid' === $key ) {
 							$values[] = $single_value;
+						} elseif ( 'description' === $key ) {
+							$values[] = wpautop( esc_html( $single_value ) );
 						} else {
 							$values[] = esc_html( $single_value );
 						}
