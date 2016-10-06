@@ -72,15 +72,23 @@ class Shortcodes {
 			if ( ! empty( $value ) ) {
 				foreach ( (array) $value as $single_value ) {
 					// skip multi-d arrays for now - should be excluded in most cases.
-					if ( ! is_array( $single_value  ) ) {
-						// Special case: trust the findingaid.
-						if ( 'relation_findingaid' === $key ) {
+					if ( is_array( $single_value ) ) {
+						continue;
+					}
+
+					switch ( $key ) {
+						case 'relation_findingaid' :
 							$values[] = $single_value;
-						} elseif ( 'description' === $key ) {
+						break;
+
+						case 'description' :
 							$values[] = wpautop( esc_html( $single_value ) );
-						} else {
+						break;
+
+						default :
 							$values[] = esc_html( $single_value );
-						}
+						break;
+
 					}
 				}
 			}
