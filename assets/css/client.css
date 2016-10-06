@@ -27,5 +27,10 @@
 	padding-left: 200px;
 }
 
+.bhs-record-image {
+	margin: 1rem 0;
+}
 
-
+.bhs-record-image-url {
+	font-size: .9rem;
+}

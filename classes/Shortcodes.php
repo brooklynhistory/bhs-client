@@ -85,6 +85,10 @@ class Shortcodes {
 							$values[] = wpautop( esc_html( $single_value ) );
 						break;
 
+						case 'relation_image' :
+							$values[] = $this->format_image( $single_value );
+						break;
+
 						default :
 							$values[] = esc_html( $single_value );
 						break;
@@ -97,7 +101,9 @@ class Shortcodes {
 				continue;
 			}
 
-			$value_html = implode( '<br />', $values );
+			// Image markup stuff is handled with CSS.
+			$sep = 'relation_image' === $key ? '' : '<br />';
+			$value_html = implode( $sep, $values );
 
 			$label = isset( $element_labels[ $key ] ) ? $element_labels[ $key ] : ucwords( $key );
 
@@ -109,6 +115,21 @@ class Shortcodes {
 			);
 		}
 		$markup .= '</ul>';
+
+		return $markup;
+	}
+
+	protected function format_image( $url ) {
+		$url = esc_url( $url );
+		$markup = sprintf(
+			'<div class="bhs-record-image">
+			  <img class="bhs-record-image-img" src="%s" />
+			  <div class="bhs-record-image-url"><a href="%s" target="_blank">%s</a></div>
+			</div>',
+			$url,
+			$url,
+			$url
+		);
 
 		return $markup;
 	}
