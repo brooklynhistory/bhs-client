@@ -93,7 +93,7 @@ class App {
 			'date' => __( 'Date', 'bhs-client' ),
 			'description' => __( 'Description', 'bhs-client' ),
 			'format' => __( 'Format', 'bhs-client' ),
-			'identifier' => __( 'Identifier', 'bhs-client' ),
+			'identifier' => __( 'Object ID', 'bhs-client' ),
 			'language' => __( 'Language', 'bhs-client' ),
 			'publisher' => __( 'Publisher', 'bhs-client' ),
 			'relation_findingaid' => __( 'Finding Aid', 'bhs-client' ),
