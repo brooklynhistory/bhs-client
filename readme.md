@@ -8,7 +8,8 @@ This plugin is currently under active development. Do not use on a production si
 
 Requirements:
 
-* PHP 5.3
+* PHP 5.3+
+* WordPress 4.4+
 
 ## Use
 
