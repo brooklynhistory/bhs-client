@@ -1,6 +1,6 @@
 # BHS Client
 
-A WordPress plugin for fetching and displaying assets from a [bhs-storehouse](https://github.com/boonebgorges/bhs-storehouse) server.
+A WordPress plugin for fetching and displaying assets from a [bhs-storehouse](https://github.com/bhslibrary/bhs-storehouse) server.
 
 Built for the [Brooklyn Historical Society](http://brooklynhistory.org) by [Hard G](https://hardg.com).
 
