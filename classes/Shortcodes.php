@@ -25,7 +25,9 @@ class Shortcodes {
 	 * @param array $atts
 	 */
 	public function bhs_record_shortcode( $atts ) {
-		wp_enqueue_style( 'bhs-client', plugins_url() . '/bhs-client/assets/css/client.css' );
+		if(!isset($atts['styles']) || $atts['styles'] === 'true'){
+			wp_enqueue_style( 'bhs-client', plugins_url() . '/bhs-client/assets/css/client.css' );
+		}
 
 		$markup = '';
 
