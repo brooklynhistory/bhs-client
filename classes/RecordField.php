@@ -116,10 +116,13 @@ class RecordField {
 		return array(
 			'contributor' => array( 'label' => __( 'Contributor', 'bhs-client' ) ),
 			'coverage' => array( 'label' => __( 'Coverage', 'bhs-client' ) ),
+			'coverage_GIS' => array( 'label' => __( 'GIS Boundaries', 'bhs-client' ) ),
 			'creator' => array( 'label' => __( 'Creator', 'bhs-client' ) ),
 			'date' => array( 'label' => __( 'Date', 'bhs-client' ) ),
 			'description' => array( 'label' => __( 'Description', 'bhs-client' ) ),
 			'format' => array( 'label' => __( 'Format', 'bhs-client' ) ),
+			'format_scale' => array( 'label' => __( 'Format - Scale', 'bhs-client' ) ),
+			'format_size' => array( 'label' => __( 'Format - Size', 'bhs-client' ) ),
 			'identifier' => array( 'label' => __( 'Identifier', 'bhs-client' ) ),
 			'language' => array( 'label' => __( 'Language', 'bhs-client' ) ),
 			'publisher' => array( 'label' => __( 'Publisher', 'bhs-client' ) ),
