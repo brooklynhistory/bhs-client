@@ -106,6 +106,7 @@ class App {
 			'rights' => __( 'Rights', 'bhs-client' ),
 			'rights_request' => __( 'Rights Request', 'bhs-client' ),
 			'source' => __( 'Source', 'bhs-client' ),
+			'subject_genre' => __( 'Genre', 'bhs-client' ),
 			'subject_people' => __( 'People', 'bhs-client' ),
 			'subject_subject' => __( 'Subjects', 'bhs-client' ),
 			'subject_places' => __( 'Places', 'bhs-client' ),

@@ -129,6 +129,7 @@ class RecordField {
 			'rights' => array( 'label' => __( 'Rights', 'bhs-client' ) ),
 			'source' => array( 'label' => __( 'Source', 'bhs-client' ) ),
 			'subject' => array( 'label' => __( 'Subject', 'bhs-client' ) ),
+			'subject_genre' => array( 'label' => __( 'Genre', 'bhs-client' ) ),
 			'title' => array( 'label' => __( 'Title', 'bhs-client' ) ),
 			'type' => array( 'label' => __( 'Type', 'bhs-client' ) ),
 		);
